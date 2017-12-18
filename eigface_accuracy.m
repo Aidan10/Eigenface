@@ -1,3 +1,6 @@
+%This file utilizes the facial recognition tools and measures the 
+%accuracy of recognition for each method.
+%
 clear;
 %Initialize variables and constants
 
@@ -19,28 +22,15 @@ Xmean = mean(X,2);
 %Subtract the mean from the faces to feature normalize
 Xnorm = X - Xmean;
 
-%%%%John addition%%%%%%
-%A = cov(Xnorm');
-
-%A = A./(m-1);
 V = ones(m,1);
 it_max = 500;
 tol = 1e-10;
 
-% size(Xnorm)
-% size(V)
-%%%%%%%%%%%%%%%%%%%%
-
-
 %Acquire the first k ordered eigenvectors and eigenvalues utilizing svd and qr
 [eigvec_svd,eigval_svd] = pca_svd(Xnorm,k); 
 [eigvec_qr,eigval_qr] = PCA_QR(Xnorm,k);
-
-%%%%%John addition%%%%%%%%%%%
 [eigvec_pow,eigval_pow] = pca_pow(Xnorm,V,it_max,tol,k);
-size(eigvec_qr);
-size(eigvec_pow);
-%%%%%%%%%%%%%%%%
+
 
 %Utilizing matlabs PCA function for comparison
 [evectors, score, evalues] = pca(Xnorm');
