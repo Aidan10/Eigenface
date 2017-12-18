@@ -4,7 +4,7 @@ function [mindist,person,dist] = match_face(W,w)
 %set. 
 %w: The weights for the individuals test face
 
-dist = sum((abs(W)-abs(w)).^2,2);
+dist = sqrt(sum((abs(W)-abs(w)).^2,2));
 [mindist,person] = min(dist);%Returns the minimum distance and the index of the person who matched
 
 end

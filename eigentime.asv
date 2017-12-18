@@ -1,3 +1,5 @@
+%Generates a plot of 
+%
 mat = linspace(10^2,2*10^3,10);
 mat = floor(mat);
 qr = [];
@@ -11,11 +13,10 @@ for i = 1:length(mat)
    k = 2;
    A = rand(mat(i));
    [w, h] = size(A);
-   mu = mean(m);
    V = ones(w,1);
    
    t = cputime; 
-   PCA_QR2(A,k,w,mu);
+   PCA_QR(A,k);
    qr = [qr cputime-t];
    
    t = cputime;
