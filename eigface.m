@@ -17,28 +17,17 @@ Xmean = mean(X,2);
 %Subtract the mean from the faces to feature normalize
 Xnorm = X - Xmean;
 
-%%%%John addition%%%%%%
-%A = cov(Xnorm');
-
-%A = A./(m-1);
+%Declare initial guess eigenvector for power method
 V = ones(m,1);
+%Declare max iterations and tolerance for power method
 it_max = 500;
 tol = 1e-10;
 
-% size(Xnorm)
-% size(V)
-%%%%%%%%%%%%%%%%%%%%
-
-
-%Acquire the first k ordered eigenvectors and eigenvalues utilizing svd and qr
+%Acquire the first k ordered eigenvectors and eigenvalues utilizing svd/qr/power
 [eigvec_svd,eigval_svd] = pca_svd(Xnorm,k); 
 [eigvec_qr,eigval_qr] = PCA_QR(Xnorm,k);
-
-%%%%%John addition%%%%%%%%%%%
 [eigvec_pow,eigval_pow] = pca_pow(Xnorm,V,it_max,tol,k);
-size(eigvec_qr);
-size(eigvec_pow);
-%%%%%%%%%%%%%%%%
+
 
 %Utilizing matlabs PCA function for comparison
 [evectors, score, evalues] = pca(Xnorm');
@@ -60,7 +49,7 @@ for n = 6:10
     title(strcat('SVD ',int2str(n-5)))
 end
 
-%Dispaly eigenfaces for QR method
+%Display eigenfaces for QR method
 for n = 11:15
     subplot(4, 5, n);
     evector = mat2gray(reshape(eigvec_qr(:,n), [112 92]));
@@ -68,7 +57,7 @@ for n = 11:15
     title(strcat('SVD ',int2str(n-10)))
 end
 
-%Dispaly eigenfaces for Power method
+%Display eigenfaces for Power method
 for n = 16:20
     subplot(4, 5, n);
     evector = mat2gray(reshape(eigvec_pow(:,n), [112 92]));

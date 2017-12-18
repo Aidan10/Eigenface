@@ -1,12 +1,15 @@
+%This file utilizes the facial recognition tools and measures the 
+%accuracy of recognition for each method.
+%
 clear;
 %Initialize variables and constants
-idx_range = 0:5:270;
+idx_range = 0:10:270;
 accuracy_mat = [];
 for idx = idx_range
     people=40;%Number of different people to select max 7 for training set
     poses=7;%Number of poses per person
     k = idx;%Dimensionality reduction, must be greater than 5
-    pick = 7;%Individual person picked to reconstruct
+    pick = 1;%Individual person picked to reconstruct
     %pv = [1 8 15 22 29 36 43 50 57 64 71];%Vector of face index in training set
     %pv2 = [1 4 7 10 13 16 19 22 25 28 31];%Vector of face index in testing set
     [pv,pv2] = pickvec(people);
@@ -47,6 +50,17 @@ for idx = idx_range
     [evectors, score, evalues] = pca(Xnorm');
     evectors = evectors(:,1:k);
 
+V = ones(m,1);
+it_max = 500;
+tol = 1e-10;
+
+%Acquire the first k ordered eigenvectors and eigenvalues utilizing svd and qr
+[eigvec_svd,eigval_svd] = pca_svd(Xnorm,k); 
+[eigvec_qr,eigval_qr] = PCA_QR(Xnorm,k);
+[eigvec_pow,eigval_pow] = pca_pow(Xnorm,V,it_max,tol,k);
+
+
+
     %Acquire k weights for each of the faces
     W = weights(Xnorm,evectors,k);%PCA weights 
     W_svd = weights(Xnorm,eigvec_svd,k);%SVD weights 
@@ -75,13 +89,19 @@ for idx = idx_range
         end
     end
 
+
     temp = sum(score_mat,1)/people*100;
     accuracy_mat = [accuracy_mat;temp];
 
 end
+
+    %Plots the accuracy for all the methods
     figure(1);
     plot(idx_range,accuracy_mat(:,1),idx_range,accuracy_mat(:,2),idx_range,accuracy_mat(:,3),idx_range,accuracy_mat(:,4))
     legend({'Matlab PCA','SVD Method','QR Method','Power Method'},'location','southeast')
     title('Accuracy in Recognition for PCA methods')
     xlabel('Eigenfaces')
     ylabel('Percent Accuracy')
+
+
+
