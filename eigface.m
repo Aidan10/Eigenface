@@ -1,6 +1,6 @@
 clear;
 %Initialize variables and constants
-people=40;%Number of different people to select max 7 for training set
+people=30;%Number of different people to select max 7 for training set
 poses=7;%Number of poses per person
 k = 130;%Dimensionality reduction, must be greater than 5
 pick = 1;%Individual person picked to reconstruct
@@ -54,7 +54,7 @@ for n = 11:15
     subplot(4, 5, n);
     evector = mat2gray(reshape(eigvec_qr(:,n), [112 92]));
     imshow(evector);
-    title(strcat('SVD ',int2str(n-10)))
+    title(strcat('QR ',int2str(n-10)))
 end
 
 %Display eigenfaces for Power method
