@@ -1,3 +1,9 @@
+%This function picks a selected range of a subjects photos
+%to use for training or testing
+%
+%Input: Person of interest person 
+%
+%Outputs:training vector set vectrain, testing vector set vectest
 function [vectrain,vectest] = pickvec(person)
 
 %Initialize vectors as the size of people included in training/testing
