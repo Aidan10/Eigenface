@@ -2,7 +2,7 @@ clear;
 %Initialize variables and constants
 people=40;%Number of different people to select max 7 for training set
 poses=7;%Number of poses per person
-k = 250;%Dimensionality reduction, must be greater than 5
+k = 130;%Dimensionality reduction, must be greater than 5
 pick = 1;%Individual person picked to reconstruct
 %pv = [1 8 15 22 29 36 43 50 57 64 71];%Vector of face index in training set
 %pv2 = [1 4 7 10 13 16 19 22 25 28 31];%Vector of face index in testing set
@@ -113,8 +113,6 @@ hold off
 
 %normalize the test set
 Xtestnorm = Xtest-Xmean;
-figure(10)
-imshow(mat2gray(reshape(Xmean,[112 92])))
 %Acquire the weights or the new projection of the test set 
 W_test = weights(Xtestnorm,eigvec_qr,k);
 
