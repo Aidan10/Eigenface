@@ -8,8 +8,7 @@
 %site and recognized face from the training set
 eigface
 
-%Prompt user in case the want to exit the program before lengthy
-%computation
+%Prompt user so they can exit the program before lengthy computation
 prompt = 'Computation for the Eigenface CPU time (Takes Approx. 60 Seconds). Would you like to continue (Y/N)? ';
 str = input(prompt,'s');
 if isempty(str)
@@ -23,8 +22,7 @@ end
 %eigentime script returns the plot of cputime with respect to the size of the data matrix 
 eigentime
 
-%Prompt user in case the want to exit the program before lengthy
-%computatio
+%Prompt user so they can exit the program before lengthy computation
 prompt = 'Last computation for the Eigenface Accuracy (Takes Approx 150 seconds). Would you like to continue (Y/N)? ';
 str = input(prompt,'s');
 if isempty(str)
